@@ -5,6 +5,14 @@ public class Vec3 {
     private float y;
     private float z;
 
+    public static Vec3 multiply(Vec3 op1, float op2) {
+        Vec3 result = new Vec3(op1);
+        result.x *= op2;
+        result.y *= op2;
+        result.z *= op2;
+        return result;
+    }
+
     public float getX() {
         return x;
     }
