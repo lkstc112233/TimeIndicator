@@ -66,4 +66,12 @@ public class Vec3 {
         y += direction.y;
         z += direction.z;
     }
+
+    public Vec3 normalize() {
+        double factor = Math.sqrt(x * x + y * y + z * z);
+        x /= factor;
+        y /= factor;
+        z /= factor;
+        return this;
+    }
 }
