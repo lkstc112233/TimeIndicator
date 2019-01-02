@@ -39,6 +39,12 @@ public class Vec3 {
         this(same, same, same);
     }
 
+    public Vec3(Vec3 op) {
+        x = op.x;
+        y = op.y;
+        z = op.z;
+    }
+
     public void add(Vec3 direction) {
         x += direction.x;
         y += direction.y;
