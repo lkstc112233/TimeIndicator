@@ -34,4 +34,8 @@ public class Vec3 {
         this.y = y;
         this.z = z;
     }
+
+    public Vec3(float same) {
+        this(same, same, same);
+    }
 }
