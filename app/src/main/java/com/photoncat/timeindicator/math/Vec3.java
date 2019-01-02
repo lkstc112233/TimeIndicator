@@ -38,4 +38,10 @@ public class Vec3 {
     public Vec3(float same) {
         this(same, same, same);
     }
+
+    public void add(Vec3 direction) {
+        x += direction.x;
+        y += direction.y;
+        z += direction.z;
+    }
 }
