@@ -83,7 +83,6 @@ public class GLES30Renderer implements GLSurfaceView.Renderer {
     }
 
     public void onDrawFrame(boolean firstDraw) {
-        GLES30.glClear(GLES30.GL_COLOR_BUFFER_BIT
-                | GLES30.GL_DEPTH_BUFFER_BIT);
+        GLES30.glClear(GLES30.GL_COLOR_BUFFER_BIT | GLES30.GL_DEPTH_BUFFER_BIT);
     }
 }
