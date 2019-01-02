@@ -18,4 +18,8 @@ public class Camera {
     public void moveLeft(float distance) {
         position.add(Vec3.multiply(Vec3.cross(front, up).normalize(), -distance));  // Right handed.
     }
+
+    public void moveUp(float distance) {
+        position.add(Vec3.multiply(up, distance));
+    }
 }
