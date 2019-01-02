@@ -13,6 +13,14 @@ public class Vec3 {
         return result;
     }
 
+    public static Vec3 cross(Vec3 a, Vec3 b) {
+        Vec3 result = new Vec3(0);
+        result.x = a.y * b.z - a.z * b.y;
+        result.y = a.z * b.x - a.x * b.z;
+        result.z = a.x * b.y - a.y * b.x;
+        return result;
+    }
+
     public float getX() {
         return x;
     }
