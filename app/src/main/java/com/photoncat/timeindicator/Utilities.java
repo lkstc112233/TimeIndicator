@@ -1,10 +1,18 @@
 package com.photoncat.timeindicator;
 
+import android.content.res.Resources;
+
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.nio.FloatBuffer;
 
 public class Utilities {
+    private static Resources res;
+
+    public static void setResource(Resources res) {
+        Utilities.res = res;
+    }
+
     /**
      * Make a direct NIO FloatBuffer from an array of floats
      *
