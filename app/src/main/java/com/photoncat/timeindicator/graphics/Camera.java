@@ -75,4 +75,18 @@ public class Camera {
     public boolean isViewLocked() {
         return lock;
     }
+
+    public Mat4 getViewMat() {
+        if (lock) {
+            front = Vec3.diff(target, position).normalize();
+        }
+        Mat4 result = new Mat4();
+        Vec3 center = new Vec3(position);
+        center.add(front);
+        Matrix.setLookAtM(result.getArray(), 0,
+                position.getX(), position.getY(), position.getZ(),
+                center.getX(), center.getY(), center.getZ(),
+                up.getX(), up.getY(), up.getZ());
+        return result;
+    }
 }
