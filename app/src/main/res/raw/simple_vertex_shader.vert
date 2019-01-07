@@ -1,15 +1,17 @@
-#version 310 core
-layout(location = 0) in vec3 aPos;
-layout(location = 1) in vec3 aNorm;
+attribute vec3 aPos;
 
 uniform mat4 transform;
 uniform mat4 view;
 uniform mat4 projection;
 
-out vec4 color;
+varying vec4 color;
 
 void main() {
 //  gl_Position = projection * view * transform * vec4(aPos, 1.0);
     gl_Position = vec4(aPos, 1.0);
-    color = clamp(vec4((aPos + 1) / 2, 1.0), 0, 1);
+    vec3 position = aPos;
+    position += vec3(1, 1, 1);
+    position /= vec3(2, 2, 2);
+    position = clamp(position, vec3(0, 0, 0), vec3(1, 1, 1));
+    color = vec4(position, 1);
 }
