@@ -2,8 +2,10 @@ package com.photoncat.timeindicator;
 
 import android.opengl.GLES30;
 import android.opengl.GLSurfaceView;
+import android.opengl.Matrix;
 import android.util.Log;
 
+import com.photoncat.timeindicator.graphics.Camera;
 import com.photoncat.timeindicator.graphics.Shader;
 import com.photoncat.timeindicator.math.Mat4;
 
@@ -24,6 +26,8 @@ public class GLES30Renderer implements GLSurfaceView.Renderer {
     private long mLastTime;
     private int mFPS;
     private Shader shader;
+    private Camera camera = new Camera();
+
     // An array of 3 vectors which represents 3 vertices
     private final float g_vertex_buffer_data[] = {
             -1.0f, -1.0f, 0.0f,
@@ -71,6 +75,10 @@ public class GLES30Renderer implements GLSurfaceView.Renderer {
         shader.setMatrix("view", defaultMatrix);
         shader.setMatrix("projection", defaultMatrix);
         shader.use();
+
+        camera.position.setX(0);
+        camera.position.setY(0);
+        camera.position.setZ(-3);
     }
 
     @Override
@@ -92,6 +100,12 @@ public class GLES30Renderer implements GLSurfaceView.Renderer {
 
         mWidth = width;
         mHeight = height;
+
+
+        Mat4 projection = new Mat4();
+        Matrix.perspectiveM(projection.getArray(), 0,
+                45, (float) width / height, 0.1F, 1000.0F);
+        shader.setMatrix("projection", projection);
 
         gl.glViewport(0, 0, width, height);
 
@@ -126,6 +140,9 @@ public class GLES30Renderer implements GLSurfaceView.Renderer {
 
     private void onDrawFrame(boolean firstDraw) {
         GLES30.glClear(GLES30.GL_COLOR_BUFFER_BIT | GLES30.GL_DEPTH_BUFFER_BIT);
+
+        shader.setMatrix("view", camera.getViewMat());
+
         GLES30.glDrawArrays(GLES30.GL_TRIANGLES, 0, 3); // Starting from vertex 0; 3 vertices total -> 1 triangle
     }
 }
