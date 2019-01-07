@@ -19,7 +19,7 @@ public class ClockActivity extends AppCompatActivity {
                 (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
         ConfigurationInfo configurationInfo = activityManager.getDeviceConfigurationInfo();
         Log.e(LOG_TAG, "version: " + Integer.toHexString(configurationInfo.reqGlEsVersion));
-        return configurationInfo.reqGlEsVersion >= 0x30000;
+        return configurationInfo.reqGlEsVersion >= 0x30001;
     }
 
     private void initialize() {
@@ -29,8 +29,8 @@ public class ClockActivity extends AppCompatActivity {
             mGLView.setPreserveEGLContextOnPause(true);
             mGLView.setRenderer(new GLES30Renderer());
         } else {
-            // Time to get a new phone, OpenGL ES 3.0 not supported.
-            throw new IllegalStateException("GLES 3.0 not supported.");
+            // Time to get a new phone, OpenGL ES 3.1 not supported.
+            throw new IllegalStateException("GLES 3.1 not supported.");
         }
     }
 
