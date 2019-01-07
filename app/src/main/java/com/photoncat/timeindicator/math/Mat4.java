@@ -10,4 +10,8 @@ public class Mat4 {
     public float get(int x, int y) {
         return data[x * 4 + y];
     }
+
+    public float[] getArray() {
+        return data;
+    }
 }
