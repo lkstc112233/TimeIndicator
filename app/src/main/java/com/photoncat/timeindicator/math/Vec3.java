@@ -21,6 +21,14 @@ public class Vec3 {
         return result;
     }
 
+    public static Vec3 diff(Vec3 a, Vec3 b) {
+        Vec3 result = new Vec3(a);
+        result.x -= b.x;
+        result.y -= b.y;
+        result.z -= b.z;
+        return result;
+    }
+
     public float getX() {
         return x;
     }
