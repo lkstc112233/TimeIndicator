@@ -72,6 +72,11 @@ public class Camera {
         front.normalize();
     }
 
+    public void lookAt(Vec3 pos) {
+        Vec3 newFront = new Vec3(pos);
+        front = Vec3.diff(pos, position).normalize();
+    }
+
     public boolean isViewLocked() {
         return lock;
     }
