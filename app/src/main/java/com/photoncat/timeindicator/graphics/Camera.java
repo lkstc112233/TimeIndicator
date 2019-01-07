@@ -1,5 +1,8 @@
 package com.photoncat.timeindicator.graphics;
 
+import android.opengl.Matrix;
+
+import com.photoncat.timeindicator.math.Mat4;
 import com.photoncat.timeindicator.math.Vec3;
 
 public class Camera {
@@ -34,6 +37,39 @@ public class Camera {
 
     public void moveDown(float distance) {
         moveUp(-distance);
+    }
+
+    public void turnYaw(float yaw) {
+        Mat4 turn = new Mat4();
+        Matrix.rotateM(turn.getArray(), 0, yaw, 0, 1, 0);
+        float[] frontLast = new float[4];
+        frontLast[0] = front.getX();
+        frontLast[1] = front.getY();
+        frontLast[2] = front.getZ();
+        frontLast[3] = 1.0F;
+        float[] result = new float[4];
+        Matrix.multiplyMV(result, 0, turn.getArray(), 0, frontLast, 0);
+        front.setX(result[0]);
+        front.setY(result[1]);
+        front.setZ(result[2]);
+        front.normalize();
+    }
+
+    public void turnPitch(float pitch) {
+        Mat4 turn = new Mat4();
+        Vec3 cross = Vec3.cross(front, up);
+        Matrix.rotateM(turn.getArray(), 0, pitch, cross.getX(), cross.getY(), cross.getZ());
+        float[] frontLast = new float[4];
+        frontLast[0] = front.getX();
+        frontLast[1] = front.getY();
+        frontLast[2] = front.getZ();
+        frontLast[3] = 1.0F;
+        float[] result = new float[4];
+        Matrix.multiplyMV(result, 0, turn.getArray(), 0, frontLast, 0);
+        front.setX(result[0]);
+        front.setY(result[1]);
+        front.setZ(result[2]);
+        front.normalize();
     }
 
     public boolean isViewLocked() {
