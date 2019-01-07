@@ -1,10 +1,12 @@
 package com.photoncat.timeindicator.math;
 
+import android.opengl.Matrix;
+
 public class Mat4 {
     private float[] data = new float[16];
 
     public Mat4() {
-        data[0] = data[5] = data[10] = data[15] = 1.0F;
+        Matrix.setIdentityM(data, 0);
     }
 
     public void set(int x, int y, float data) {
