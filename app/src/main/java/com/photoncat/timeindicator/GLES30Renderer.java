@@ -38,6 +38,17 @@ public class GLES30Renderer implements GLSurfaceView.Renderer {
         mHeight = -1;
         mLastTime = System.currentTimeMillis();
         mFPS = 0;
+    }
+
+    @Override
+    public void onSurfaceCreated(GL10 gl, EGLConfig config) {
+        Log.i(LOG_TAG, "Surface created.");
+        gl.glEnable(gl.GL_DEPTH_TEST);
+        gl.glEnable(gl.GL_BLEND);
+        gl.glBlendFunc(gl.GL_SRC_ALPHA, gl.GL_ONE_MINUS_SRC_ALPHA);
+        mSurfaceCreated = true;
+        mWidth = -1;
+        mHeight = -1;
         int[] VAO = new int[1];
         GLES30.glGenVertexArrays(1, VAO, 0);
         GLES30.glBindVertexArray(VAO[0]);
@@ -55,17 +66,6 @@ public class GLES30Renderer implements GLSurfaceView.Renderer {
                 createFragmentShader(R.raw.simple_fragment_shader)
         ));
         shader.use();
-    }
-
-    @Override
-    public void onSurfaceCreated(GL10 gl, EGLConfig config) {
-        Log.i(LOG_TAG, "Surface created.");
-        gl.glEnable(gl.GL_DEPTH_TEST);
-        gl.glEnable(gl.GL_BLEND);
-        gl.glBlendFunc(gl.GL_SRC_ALPHA, gl.GL_ONE_MINUS_SRC_ALPHA);
-        mSurfaceCreated = true;
-        mWidth = -1;
-        mHeight = -1;
     }
 
     @Override
