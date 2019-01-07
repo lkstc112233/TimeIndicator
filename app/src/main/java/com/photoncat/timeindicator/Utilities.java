@@ -2,6 +2,9 @@ package com.photoncat.timeindicator;
 
 import android.content.res.Resources;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.UncheckedIOException;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.nio.FloatBuffer;
@@ -26,5 +29,15 @@ public class Utilities {
         fb.put(arr);
         fb.position(0);
         return fb;
+    }
+
+    public static String readFile(String path) {
+        try (InputStream stream = res.getAssets().open("foo.txt");
+             java.util.Scanner scanner = new java.util.Scanner(stream).useDelimiter("\\A")) {
+            return scanner.hasNext() ? scanner.next() : "";
+        } catch (IOException e) {
+            // Rethrow the exception since we want the program to break.
+            throw new UncheckedIOException(e);
+        }
     }
 }
