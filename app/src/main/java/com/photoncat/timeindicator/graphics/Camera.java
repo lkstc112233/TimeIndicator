@@ -4,6 +4,7 @@ import com.photoncat.timeindicator.math.Vec3;
 
 public class Camera {
     private final Vec3 up = new Vec3(0, 1, 0);
+    private boolean lock = false;
     private Vec3 front = new Vec3(0, 0, 1);
     public Vec3 position = new Vec3(0);
 
@@ -33,5 +34,9 @@ public class Camera {
 
     public void moveDown(float distance) {
         moveUp(-distance);
+    }
+
+    public boolean isViewLocked() {
+        return lock;
     }
 }
