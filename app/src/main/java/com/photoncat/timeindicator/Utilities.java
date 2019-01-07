@@ -31,8 +31,8 @@ public class Utilities {
         return fb;
     }
 
-    public static String readFile(String path) {
-        try (InputStream stream = res.getAssets().open("foo.txt");
+    public static String readFileFromResourse(int resId) {
+        try (InputStream stream = res.openRawResource(resId);
              java.util.Scanner scanner = new java.util.Scanner(stream).useDelimiter("\\A")) {
             return scanner.hasNext() ? scanner.next() : "";
         } catch (IOException e) {
