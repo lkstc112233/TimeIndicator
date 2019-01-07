@@ -7,8 +7,7 @@ uniform mat4 projection;
 varying vec4 color;
 
 void main() {
-//  gl_Position = projection * view * transform * vec4(aPos, 1.0);
-    gl_Position = vec4(aPos, 1.0);
+    gl_Position = projection * view * transform * vec4(aPos, 1.0);
     vec3 position = aPos;
     position += vec3(1, 1, 1);
     position /= vec3(2, 2, 2);

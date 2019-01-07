@@ -5,6 +5,7 @@ import android.opengl.GLSurfaceView;
 import android.util.Log;
 
 import com.photoncat.timeindicator.graphics.Shader;
+import com.photoncat.timeindicator.math.Mat4;
 
 import java.nio.FloatBuffer;
 import java.util.Arrays;
@@ -65,6 +66,10 @@ public class GLES30Renderer implements GLSurfaceView.Renderer {
                 createVertexShader(R.raw.simple_vertex_shader),
                 createFragmentShader(R.raw.simple_fragment_shader)
         ));
+        Mat4 defaultMatrix = new Mat4();
+        shader.setMatrix("transform", defaultMatrix);
+        shader.setMatrix("view", defaultMatrix);
+        shader.setMatrix("projection", defaultMatrix);
         shader.use();
     }
 
