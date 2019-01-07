@@ -9,6 +9,7 @@ public class Camera {
     private final Vec3 up = new Vec3(0, 1, 0);
     private boolean lock = false;
     private Vec3 front = new Vec3(0, 0, 1);
+    private Vec3 target = new Vec3(0);
     public Vec3 position = new Vec3(0);
 
     public void move(Vec3 direction) {
@@ -75,6 +76,15 @@ public class Camera {
     public void lookAt(Vec3 pos) {
         Vec3 newFront = new Vec3(pos);
         front = Vec3.diff(pos, position).normalize();
+    }
+
+    public void lockView(Vec3 pos) {
+        lock = true;
+        target = pos;
+    }
+
+    public void unlockView() {
+        lock = false;
     }
 
     public boolean isViewLocked() {
