@@ -8,6 +8,7 @@ import android.util.Log;
 import com.photoncat.timeindicator.graphics.Camera;
 import com.photoncat.timeindicator.graphics.Shader;
 import com.photoncat.timeindicator.math.Mat4;
+import com.photoncat.timeindicator.math.Vec3;
 
 import java.nio.FloatBuffer;
 import java.util.Arrays;
@@ -144,5 +145,10 @@ public class GLES30Renderer implements GLSurfaceView.Renderer {
         shader.setMatrix("view", camera.getViewMat());
 
         GLES30.glDrawArrays(GLES30.GL_TRIANGLES, 0, 3); // Starting from vertex 0; 3 vertices total -> 1 triangle
+    }
+
+    public void cameraTo(Vec3 position) {
+        camera.position = position;
+        camera.lookAt(new Vec3(0));
     }
 }
