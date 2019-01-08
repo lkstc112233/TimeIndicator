@@ -27,7 +27,7 @@ public class GLES30Renderer implements GLSurfaceView.Renderer {
     private long mLastTime;
     private int mFPS;
     private Shader shader;
-    private Camera camera = new Camera();
+    private final Camera camera = new Camera();
 
     private final float g_vertex_buffer_data[] = {
             -0.5f, -0.5f, -0.5f,
