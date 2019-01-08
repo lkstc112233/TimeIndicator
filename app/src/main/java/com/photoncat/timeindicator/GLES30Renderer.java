@@ -144,7 +144,7 @@ public class GLES30Renderer implements GLSurfaceView.Renderer {
 
         shader.setMatrix("view", camera.getViewMat());
 
-        GLES30.glDrawArrays(GLES30.GL_TRIANGLES, 0, 3); // Starting from vertex 0; 3 vertices total -> 1 triangle
+        GLES30.glDrawArrays(GLES30.GL_TRIANGLES, 0, g_vertex_buffer_data.length / 3); // Starting from vertex 0; 3 vertices total -> 1 triangle
     }
 
     public void cameraTo(Vec3 position) {
