@@ -6,10 +6,10 @@ import com.photoncat.timeindicator.math.Mat4;
 import com.photoncat.timeindicator.math.Vec3;
 
 public class Camera {
-    private final Vec3 up = new Vec3(0, 1, 0);
     private boolean lock = false;
     private Vec3 front = new Vec3(0, 0, 1);
     private Vec3 target = new Vec3(0);
+    public Vec3 up = new Vec3(0, 1, 0);
     public Vec3 position = new Vec3(0);
 
     public void move(Vec3 direction) {
