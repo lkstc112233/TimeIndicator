@@ -179,13 +179,20 @@ public class GLES30Renderer implements GLSurfaceView.Renderer {
     private void onDrawFrame(boolean firstDraw) {
         GLES30.glClear(GLES30.GL_COLOR_BUFFER_BIT | GLES30.GL_DEPTH_BUFFER_BIT);
 
-        shader.setMatrix("view", camera.getViewMat());
+        Mat4 viewMat;
+        synchronized (camera) {
+            viewMat = camera.getViewMat();
+        }
+        shader.setMatrix("view", viewMat);
 
         GLES30.glDrawArrays(GLES30.GL_TRIANGLES, 0, g_vertex_buffer_data.length / 3); // Starting from vertex 0; 3 vertices total -> 1 triangle
     }
 
-    public void cameraTo(Vec3 position) {
-        camera.position = position;
+    public void cameraTo(Vec3 position, Vec3 up) {
+        synchronized (camera) {
+            camera.position = position;
+            camera.up = up;
+        }
         camera.lookAt(new Vec3(0));
     }
 }
