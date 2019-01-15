@@ -192,7 +192,7 @@ public class GLES30Renderer implements GLSurfaceView.Renderer {
         synchronized (camera) {
             camera.position = position;
             camera.up = up;
+            camera.lookAt(new Vec3(0));
         }
-        camera.lookAt(new Vec3(0));
     }
 }
