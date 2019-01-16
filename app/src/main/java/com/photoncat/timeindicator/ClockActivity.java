@@ -60,15 +60,24 @@ public class ClockActivity extends AppCompatActivity {
             }
 
             private float[] rotateMatrix = new float[16];
-            private float[] up = new float[]{0, 1, 0, 1};
-            private float[] front = new float[]{0, 0, 10, 1};
+            private float[] rotateMatrixTemp = new float[16];
+            private float[] up = new float[]{0, 0, 1, 1};
+            private float[] front = new float[]{-10, 0, 0, 1};
             private float[] newUp = new float[4];
             private float[] position = new float[4];
+            private float[] toggleXZ = new float[]{0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1};
+            private float[] quaternion = new float[4];
 
             public void onSensorChanged(SensorEvent event) {
                 if (event.sensor.getType() == Sensor.TYPE_ROTATION_VECTOR) {
-                    Log.d(LOG_TAG, "RV: " + Arrays.toString(event.values));
                     SensorManager.getRotationMatrixFromVector(rotateMatrix, event.values);
+                    SensorManager.getQuaternionFromVector(quaternion, event.values);
+
+                    // Log.d(LOG_TAG, "w: " + quaternion[0] + ", x: " + quaternion[1] + ", y: " + quaternion[2] + ", z: " + quaternion[3]);
+
+                    // Trick to switch the matrix.
+                    Matrix.multiplyMM(rotateMatrixTemp, 0, toggleXZ, 0, rotateMatrix, 0);
+                    Matrix.multiplyMM(rotateMatrix, 0, rotateMatrixTemp, 0, toggleXZ, 0);
                     Matrix.multiplyMV(newUp, 0, rotateMatrix, 0, up, 0);
                     Matrix.multiplyMV(position, 0, rotateMatrix, 0, front, 0);
 
