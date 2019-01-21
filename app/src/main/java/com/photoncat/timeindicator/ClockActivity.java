@@ -60,12 +60,9 @@ public class ClockActivity extends AppCompatActivity {
             }
 
             private float[] rotateMatrix = new float[16];
-            private float[] rotateMatrixInversed = new float[16];
-            private float[] rotateMatrixTemp = new float[16];
-            private float[] up = new float[]{0, 1, 0, 1};
-            private float[] front = new float[]{0, 0, -10, 1};
-            private float[] newUp = new float[4];
-            private float[] position = new float[4];
+            private float[] rotateMatrixTemp = new float[32];
+            private float[] up = new float[]{0, 1, 0, 1, 0, 0, 0, 0};
+            private float[] front = new float[]{0, 0, -10, 1, 0, 0, 0, 0};
             private float[] inverseXZ = new float[]{-1, 0, 0, 0, 0, 1, 0, 0, 0, 0, -1, 0, 0, 0, 0, 1};
             private float[] quaternion = new float[4];
 
@@ -76,12 +73,12 @@ public class ClockActivity extends AppCompatActivity {
 
                     // Trick to switch the matrix.
                     Matrix.multiplyMM(rotateMatrixTemp, 0, inverseXZ, 0, rotateMatrix, 0);
-                    Matrix.multiplyMM(rotateMatrix, 0, rotateMatrixTemp, 0, inverseXZ, 0);
-                    Matrix.transposeM(rotateMatrixInversed, 0, rotateMatrix, 0);
-                    Matrix.multiplyMV(newUp, 0, rotateMatrixInversed, 0, up, 0);
-                    Matrix.multiplyMV(position, 0, rotateMatrixInversed, 0, front, 0);
+                    Matrix.multiplyMM(rotateMatrixTemp, 16, rotateMatrixTemp, 0, inverseXZ, 0);
+                    Matrix.transposeM(rotateMatrix, 0, rotateMatrixTemp, 16);
+                    Matrix.multiplyMV(up, 4, rotateMatrix, 0, up, 0);
+                    Matrix.multiplyMV(front, 4, rotateMatrix, 0, front, 0);
 
-                    renderer.cameraTo(new Vec3(position[0], position[1], position[2]), new Vec3(newUp[0], newUp[1], newUp[2]));
+                    renderer.cameraTo(new Vec3(front[4], front[5], front[6]), new Vec3(up[4], up[5], up[6]));
                 }
             }
         };
